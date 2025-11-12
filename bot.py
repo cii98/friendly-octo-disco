@@ -6,17 +6,12 @@ import re
 import os
 from flask import Flask, request
 
-
-
 API_KEY = "NSE56XN-SQXM40Q-NBR3AXV-K4CRCGN"
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
-# обработчик команд
-@bot.message_handler(commands=['start'])
-def start(message):
-    bot.send_message(message.chat.id, "Привет! Я готов работать через Webhook.")
+
 
 # обработка входящих обновлений от Telegram
 @app.route('/' + TOKEN, methods=['POST'])
@@ -30,8 +25,9 @@ def getMessage():
 @app.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url="https://friendly-octo-disco-1.onrender.com" + TOKEN)
+    bot.set_webhook(url="https://friendly-octo-disco-1.onrender.com/" + TOKEN)
     return "Webhook set", 200
+
 
 
 
@@ -237,6 +233,7 @@ def rand_film(message):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
