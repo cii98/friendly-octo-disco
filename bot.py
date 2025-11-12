@@ -3,9 +3,15 @@ from telebot import types
 import requests
 import random
 import re
+import os
+
+
+TOKEN = os.getenv("8407981591:AAFoO9Zr35bIup11OWqpHoRsTj6v-i_J-Rc")
+bot = telebot.TeleBot(TOKEN)
+
 
 API_KEY = "NSE56XN-SQXM40Q-NBR3AXV-K4CRCGN"
-bot = telebot.TeleBot("8407981591:AAFoO9Zr35bIup11OWqpHoRsTj6v-i_J-Rc")
+
 
 user_poisk = {}
 user_sled = {}
@@ -204,5 +210,6 @@ def rand_film(message):
                 bot.send_message(chat_id, caption, parse_mode="HTML", reply_markup=keyboard_glavn())
     else:
         bot.send_message(chat_id, "Фильм не найден. Попробуйте изменить запрос.", reply_markup=keyboard_glavn())
+
 
 bot.polling(none_stop=True)
