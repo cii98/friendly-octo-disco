@@ -4,13 +4,33 @@ import requests
 import random
 import re
 import os
-
-
-TOKEN = os.getenv("TELEGRAM_TOKEN")
-bot = telebot.TeleBot(TOKEN)
-
+from flask import Flask, request
 
 API_KEY = "NSE56XN-SQXM40Q-NBR3AXV-K4CRCGN"
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+bot = telebot.TeleBot(TOKEN)
+app = Flask(__name__)
+
+# обработчик команд
+@bot.message_handler(commands=['start'])
+def start(message):
+    bot.send_message(message.chat.id, "Привет! Я готов работать через Webhook.")
+
+# обработка входящих обновлений от Telegram
+@app.route('/' + TOKEN, methods=['POST'])
+def getMessage():
+    json_str = request.stream.read().decode("utf-8")
+    update = telebot.types.Update.de_json(json_str)
+    bot.process_new_updates([update])
+    return "OK", 200
+
+# установка webhook при запуске
+@app.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url="https://<your-app-name>.onrender.com/" + TOKEN)
+    return "Webhook set", 200
+
 
 
 user_poisk = {}
@@ -213,4 +233,5 @@ def rand_film(message):
 
 
 bot.polling(none_stop=True)
+
 
