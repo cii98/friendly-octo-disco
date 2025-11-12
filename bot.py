@@ -6,6 +6,8 @@ import re
 import os
 from flask import Flask, request
 
+bot.set_webhook(url="https://https://friendly-octo-disco-1.onrender.com" + TOKEN)
+
 API_KEY = "NSE56XN-SQXM40Q-NBR3AXV-K4CRCGN"
 TOKEN = os.getenv("TELEGRAM_TOKEN")
 bot = telebot.TeleBot(TOKEN)
@@ -235,6 +237,7 @@ def rand_film(message):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+
 
 
 
