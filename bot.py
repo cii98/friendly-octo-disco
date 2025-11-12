@@ -6,7 +6,7 @@ import re
 import os
 
 
-TOKEN = os.getenv("8407981591:AAFoO9Zr35bIup11OWqpHoRsTj6v-i_J-Rc")
+TOKEN = os.getenv("TELEGRAM_TOKEN")
 bot = telebot.TeleBot(TOKEN)
 
 
@@ -213,3 +213,4 @@ def rand_film(message):
 
 
 bot.polling(none_stop=True)
+
