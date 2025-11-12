@@ -232,6 +232,10 @@ def rand_film(message):
         bot.send_message(chat_id, "Фильм не найден. Попробуйте изменить запрос.", reply_markup=keyboard_glavn())
 
 
-bot.polling(none_stop=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
+
+
 
 
